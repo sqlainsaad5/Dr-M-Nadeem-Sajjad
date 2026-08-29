@@ -168,7 +168,7 @@ export default function Home() {
           <div className="container hero-grid">
             <div className="hero-copy">
               <p className="eyebrow"><span></span> Dr. M. Nadeem Sajjad</p>
-              <h1>Paediatric Surgeon &amp;<br />Paediatric Urologist</h1>
+              <h1>Best Pediatric &amp;<br />Neonatal Surgeon</h1>
               <p className="hero-text">MBBS, FCPS (Paediatric Surgery), with specialist expertise in paediatric urology and minimally invasive surgery.</p>
               <div className="hero-actions">
                 <a className="button button-primary" href="#appointment">Book an appointment <span>↗</span></a>
