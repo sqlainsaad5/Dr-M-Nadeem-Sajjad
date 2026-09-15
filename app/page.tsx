@@ -281,9 +281,36 @@ export default function Home() {
           <div className="container">
             <div className="section-heading centered"><div><p className="eyebrow"><span></span> Find us near you</p><h2>Here when<br /><em>you need us.</em></h2></div><p>Choose the clinic that’s most convenient for your family.</p></div>
             <div className="clinic-grid">
-              <article className="clinic-card"><span className="clinic-tag">Clinic 01</span><h3>Rasheed<br />Hospital</h3><p>Near DHA, Lahore<br />Monday to Thursday<br />3 PM – 5 PM</p><a href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book here <span>↗</span></a></article>
-              <article className="clinic-card"><span className="clinic-tag">Clinic 02</span><h3>Zaitoon<br />Hospital</h3><p>Pattoki<br />Every Friday<br />4 PM</p><a href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book here <span>↗</span></a></article>
-              <article className="clinic-card"><span className="clinic-tag">Clinic 03</span><h3>Rehman Medical<br />Complex</h3><p>Okara<br />5:30 PM – 7:30 PM</p><a href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book here <span>↗</span></a></article>
+              <article className="clinic-card">
+                <span className="clinic-tag">Clinic 01</span>
+                <h3>Rasheed Hospital</h3>
+                <ul className="clinic-meta">
+                  <li><span>Location</span><strong>Near DHA, Lahore</strong></li>
+                  <li><span>Days</span><strong>Monday to Thursday</strong></li>
+                  <li><span>Timing</span><strong>3 PM – 5 PM</strong></li>
+                </ul>
+                <a className="clinic-book" href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book on WhatsApp <span>↗</span></a>
+              </article>
+              <article className="clinic-card">
+                <span className="clinic-tag">Clinic 02</span>
+                <h3>Zaitoon Hospital</h3>
+                <ul className="clinic-meta">
+                  <li><span>Location</span><strong>Pattoki</strong></li>
+                  <li><span>Days</span><strong>Every Friday</strong></li>
+                  <li><span>Timing</span><strong>4 PM</strong></li>
+                </ul>
+                <a className="clinic-book" href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book on WhatsApp <span>↗</span></a>
+              </article>
+              <article className="clinic-card">
+                <span className="clinic-tag">Clinic 03</span>
+                <h3>Rehman Medical Complex</h3>
+                <ul className="clinic-meta">
+                  <li><span>Location</span><strong>Okara</strong></li>
+                  <li><span>Days</span><strong>Appointments available</strong></li>
+                  <li><span>Timing</span><strong>5:30 PM – 7:30 PM</strong></li>
+                </ul>
+                <a className="clinic-book" href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book on WhatsApp <span>↗</span></a>
+              </article>
             </div>
           </div>
         </section>
