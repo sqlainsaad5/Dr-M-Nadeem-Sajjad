@@ -203,7 +203,7 @@ h2 { font-size: clamp(37px, 4vw, 52px); }
 .site-footer { color: #bdd8f1; background: #0f2f5c; }
 .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1.25fr 1fr; gap: 35px; padding: 75px 0 60px; }
 .footer-brand { color: var(--white); }
-.footer-top > div:first-child > p { margin: 19px 0 0; color: #9dbad9; font-size: 12px; }
+.footer-top > div:first-child > p { margin: 19px 0 0; color: var(--white); font-size: 14px; font-weight: 600; line-height: 1.45; }
 .footer-column { display: flex; flex-direction: column; gap: 9px; font-size: 11px; }
 .footer-column h4 { margin: 0 0 8px; color: #9ed3f5; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; }
 .footer-column a:hover { color: var(--white); }
