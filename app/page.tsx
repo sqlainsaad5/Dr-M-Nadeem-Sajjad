@@ -7,6 +7,29 @@ import { useRef } from "react";
 const WHATSAPP_LINK = "https://wa.me/923017978308";
 const WHATSAPP_MESSAGE = encodeURIComponent("Assalam o Alaikum, I want to book an appointment with Dr. Muhammad Nadeem Sajjad.");
 
+const heroSlides = [
+  {
+    eyebrow: "Dr. Muhammad Nadeem Sajjad",
+    title: <>Paediatric Surgeon and<br />Paediatric Urologist</>,
+    text: "MBBS, FCPS (Paediatric Surgery). Contact for children’s surgery: 0301-7978308.",
+  },
+  {
+    eyebrow: "Clinical experience",
+    title: <>Ex-Registrar<br />Mayo Hospital Lahore</>,
+    text: "Former Registrar, Paediatric Surgery at Mayo Hospital, Lahore — experienced in advanced paediatric surgical care.",
+  },
+  {
+    eyebrow: "Paediatric Urology",
+    title: <>Senior Registrar<br />Children’s Hospital Lahore</>,
+    text: "Senior Registrar, Paediatric Urology at Children’s Hospital, Lahore — specialist care for children’s kidney and bladder conditions.",
+  },
+  {
+    eyebrow: "Clinic timings",
+    title: <>Rasheed · Zaitoon ·<br />Rehman Medical</>,
+    text: "Rasheed Hospital Near DHA: Mon–Thu, 3–5 PM · Zaitoon Hospital Pattoki: Friday, 4 PM · Rehman Medical Complex Okara: 5:30–7:30 PM.",
+  },
+];
+
 const treatments = [
   ["01", "⌁", "Congenital", "Anomalies", "Specialized treatment for conditions present from birth."],
   ["02", "◌", "Paediatric", "Urology", "Expert care for urinary and genital conditions in children."],
@@ -94,12 +117,24 @@ function AnimatedNumber({
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [slide, setSlide] = useState(0);
+  const [heroIndex, setHeroIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [minDate, setMinDate] = useState("");
 
   useEffect(() => {
     setMinDate(new Date().toISOString().split("T")[0]);
   }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setHeroIndex((current) => (current + 1) % heroSlides.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [heroIndex]);
+
+  const goHero = (direction: number) => {
+    setHeroIndex((current) => (current + direction + heroSlides.length) % heroSlides.length);
+  };
 
   useEffect(() => {
     const sections = document.querySelectorAll<HTMLElement>("main > section:not(.hero)");
@@ -190,20 +225,31 @@ export default function Home() {
 
       <main>
         <section className="hero">
-          <div className="hero-pattern"></div>
+          <div className="hero-bg" aria-hidden="true"></div>
+          <div className="hero-overlay"></div>
           <div className="container hero-grid">
-            <div className="hero-copy">
-              <p className="eyebrow"><span></span> Dr. Muhammad Nadeem Sajjad</p>
-              <h1>Paediatric Surgeon and<br />Paediatric Urologist</h1>
-              <p className="hero-text">MBBS, FCPS (Paediatric Surgery) — Paediatric Surgeon and Paediatric Urologist. Contact for children’s surgery: 0301-7978308.</p>
+            <div className="hero-copy" key={heroIndex}>
+              <p className="eyebrow"><span></span> {heroSlides[heroIndex].eyebrow}</p>
+              <h1>{heroSlides[heroIndex].title}</h1>
+              <p className="hero-text">{heroSlides[heroIndex].text}</p>
               <div className="hero-actions">
                 <a className="button button-primary" href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book an appointment <span>↗</span></a>
               </div>
             </div>
           </div>
-          <button className="hero-arrow hero-arrow-left" aria-label="Previous slide">‹</button>
-          <button className="hero-arrow hero-arrow-right" aria-label="Next slide">›</button>
-          <div className="hero-dots" aria-label="Hero slides"><span className="active"></span><span></span><span></span></div>
+          <button className="hero-arrow hero-arrow-left" aria-label="Previous slide" onClick={() => goHero(-1)}>‹</button>
+          <button className="hero-arrow hero-arrow-right" aria-label="Next slide" onClick={() => goHero(1)}>›</button>
+          <div className="hero-dots" aria-label="Hero slides">
+            {heroSlides.map((item, index) => (
+              <button
+                key={item.eyebrow}
+                type="button"
+                className={index === heroIndex ? "active" : ""}
+                aria-label={`Go to slide ${index + 1}`}
+                onClick={() => setHeroIndex(index)}
+              />
+            ))}
+          </div>
         </section>
 
         <section className="stats-section">
