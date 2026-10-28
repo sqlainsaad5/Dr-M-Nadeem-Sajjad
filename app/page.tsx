@@ -37,12 +37,26 @@ const treatments = [
   ["04", "♡", "Scrotal &", "Vascular", "Care for hernia, hydrocele and varicocele conditions."],
 ];
 
+const pricing = [
+  ["01", "Open / Laparoscopic appendicectomy", "One day stay", "PKR 100,000"],
+  ["02", "Inguinal / umbilical hernia repair (herniotomy)", "Laparoscopic repair", "PKR 100,000"],
+  ["03", "Hypospadias repair", "Single-stage repair · One day stay", "PKR 150,000"],
+  ["04", "Undescended testis", "Laparoscopy for intra-abdominal testis", "PKR 100,000"],
+  ["05", "Open / Laparoscopic pyeloplasty for PUJO", "Laparoscopic pyeloplasty", "PKR 250,000"],
+  ["06", "Cystoscopy for PUV", "", "PKR 150,000"],
+  ["07", "Urethral reimplantation for VUR / megaureter", "", "PKR 300,000"],
+  ["08", "Bladder stone", "PUCL / PCCL — removal by camera / laser", "PKR 100,000"],
+  ["09", "Ureteroscopic removal of ureteric stone", "", "PKR 150,000"],
+  ["10", "Renal stone in children", "RIRS / PCNL", "PKR 250,000"],
+  ["11", "Circumcision", "Plastibell or open by stitch method · No hospital stay", "PKR 20,000"],
+];
+
 const testimonials = [
   {
-    initials: "SN",
+    initials: "HM",
     quote: "Dr. M. Nadeem Sajjad is an exceptional pediatric surgeon. His expertise combined with his compassionate approach ensures the best outcomes for children. We felt safe and supported at every step.",
-    name: "Dr. Saleem Niazi",
-    role: "Consultant Pediatric Surgeon",
+    name: "Dr Hafiz Mahmood",
+    role: "Assistant Professor Paediatric Surgery CH, Lahore",
   },
   {
     initials: "JC",
@@ -213,7 +227,7 @@ export default function Home() {
           </button>
           <nav className={`main-nav ${menuOpen ? "open" : ""}`} aria-label="Main navigation">
             {[
-              ["Home", "#home"], ["About", "#about"], ["Treatments", "#treatments"],
+              ["Home", "#home"], ["About", "#about"], ["Treatments", "#treatments"], ["Pricing", "#pricing"],
               ["Clinics", "#clinics"], ["Testimonials", "#testimonials"], ["Contact", "#contact"],
             ].map(([label, href], index) => (
               <a className={index === 0 ? "active" : ""} href={href} key={label} onClick={() => setMenuOpen(false)}>{label}</a>
@@ -297,6 +311,30 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="pricing section-pad" id="pricing">
+          <div className="container">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow"><span></span> Procedure fees</p>
+                <h2>Transparent pricing<br /><em>for every family.</em></h2>
+              </div>
+              <p>Indicative fees for common paediatric procedures. Final cost is confirmed after consultation.</p>
+            </div>
+            <div className="pricing-list">
+              {pricing.map(([number, title, note, price]) => (
+                <div className="pricing-row" key={number}>
+                  <span className="pricing-number">{number}</span>
+                  <div className="pricing-info">
+                    <h3>{title}</h3>
+                    {note ? <p>{note}</p> : null}
+                  </div>
+                  <strong className="pricing-amount">{price}</strong>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="care-section section-pad">
           <div className="container care-grid">
             <div className="care-copy"><p className="eyebrow"><span></span> Why families choose us</p><h2>Care that goes<br /><em>beyond treatment.</em></h2><p>We believe healing is more than a procedure. It’s listening, explaining, supporting, and being there every step of the way.</p><a className="button button-dark" href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Start your child’s care <span>↗</span></a></div>
@@ -372,7 +410,7 @@ export default function Home() {
       </main>
 
       <footer className="site-footer" id="contact">
-        <div className="container footer-top"><div><a className="brand footer-brand" href="#home"><img className="brand-logo" src="/pediatric-logo.jpg" alt="Paediatric Surgeon and Paediatric Urologist" /><span><strong>Dr. M. Nadeem Sajjad</strong></span></a><p>Paediatric Surgeon and<br />Paediatric Urologist</p></div><div className="footer-column"><h4>Explore</h4><a href="#about">About the doctor</a><a href="#treatments">Treatments</a><a href="#clinics">Our clinics</a></div><div className="footer-column"><h4>Get in touch</h4><a href="tel:+923017978308">0301-7978308</a><a href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">WhatsApp: 0301-7978308</a><a href="mailto:Mazhar20211@gmail.com">Mazhar20211@gmail.com</a><p>Rasheed Hospital (Near DHA)<br />Mon–Thu, 3–5 PM<br />Zaitoon Hospital, Pattoki<br />Friday, 4 PM<br />Rehman Medical Complex, Okara<br />5:30 PM – 7:30 PM</p></div><div className="footer-column footer-cta"><h4>Ready to talk?</h4><a className="button button-light" href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book an appointment <span>↗</span></a></div></div>
+        <div className="container footer-top"><div><a className="brand footer-brand" href="#home"><img className="brand-logo" src="/pediatric-logo.jpg" alt="Paediatric Surgeon and Paediatric Urologist" /><span><strong>Dr. M. Nadeem Sajjad</strong></span></a><p>Paediatric Surgeon and<br />Paediatric Urologist</p></div><div className="footer-column"><h4>Explore</h4><a href="#about">About the doctor</a><a href="#treatments">Treatments</a><a href="#pricing">Pricing</a><a href="#clinics">Our clinics</a></div><div className="footer-column"><h4>Get in touch</h4><a href="tel:+923017978308">0301-7978308</a><a href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">WhatsApp: 0301-7978308</a><a href="mailto:Mazhar20211@gmail.com">Mazhar20211@gmail.com</a><p>Rasheed Hospital (Near DHA)<br />Mon–Thu, 3–5 PM<br />Zaitoon Hospital, Pattoki<br />Friday, 4 PM<br />Rehman Medical Complex, Okara<br />5:30 PM – 7:30 PM</p></div><div className="footer-column footer-cta"><h4>Ready to talk?</h4><a className="button button-light" href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book an appointment <span>↗</span></a></div></div>
         <div className="container footer-bottom"><span>© 2025 Dr. M. Nadeem Sajjad. All rights reserved.</span><span>Made with care for little ones <span className="heart">♥</span></span></div>
       </footer>
     </>
