@@ -115,88 +115,188 @@ h2 { font-size: clamp(37px, 4vw, 52px); }
 .text-link { color: var(--teal); font-size: 12px; font-weight: 700; }
 .text-link span { padding-left: 9px; font-size: 18px; }
 
-.treatments { background: #eef7ff; }
+.treatments {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 8% 12%, rgba(33, 102, 232, .12), transparent 58%),
+    radial-gradient(ellipse 55% 45% at 92% 88%, rgba(18, 59, 122, .1), transparent 55%),
+    linear-gradient(180deg, #f4f8ff 0%, #eaf2fc 48%, #f7faff 100%);
+}
+.treatments-glow {
+  position: absolute;
+  inset: 12% 18% auto;
+  height: 220px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,255,255,.7), transparent 70%);
+  filter: blur(28px);
+}
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 47px; }
 .section-heading h2 { margin-bottom: 0; }
 .section-heading > p { max-width: 264px; margin-bottom: 7px; color: var(--muted); font-size: 13px; }
-.treatment-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
+.treatments-heading > p { max-width: 290px; }
+.treatment-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .treatment-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 298px;
-  padding: 26px 22px 20px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: rgba(255,255,255,.72);
-  box-shadow: 0 8px 22px rgba(18, 59, 122, .05);
-  transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+  min-height: 0;
+  padding: 28px 26px 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.85);
+  border-radius: 22px;
+  background:
+    linear-gradient(165deg, rgba(255,255,255,.96) 0%, rgba(247,251,255,.92) 100%);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.9) inset,
+    0 18px 40px rgba(18, 59, 122, .08);
+  backdrop-filter: blur(10px);
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease, border-color .35s ease;
 }
-.treatment-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(18, 59, 122, .12); }
-.treatment-card.featured { color: var(--white); border-color: var(--teal); background: var(--teal); }
-.treatment-number { color: #91a8c4; font-size: 11px; }
-.featured .treatment-number { color: #b2ddfb; }
+.treatment-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 3px;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(90deg, #1a5fe0, #5aa2ff 55%, #9fd0ff);
+  opacity: .9;
+}
+.treatment-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(33, 102, 232, .22);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.95) inset,
+    0 28px 55px rgba(18, 59, 122, .14);
+}
+.treatment-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.treatment-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: var(--teal-dark);
+  background: rgba(33, 102, 232, .08);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .8px;
+}
 .treatment-icon {
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
-  margin: 22px 0 14px;
-  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
   color: var(--teal);
-  background: #eaf4ff;
+  background: linear-gradient(145deg, #eef5ff, #dceaff);
+  box-shadow: 0 8px 18px rgba(33, 102, 232, .12);
   font-family: Georgia, serif;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1;
+  transition: transform .35s ease;
 }
-.featured .treatment-icon { color: #dff3ff; background: rgba(255,255,255,.16); }
-.treatment-card h3 { margin-bottom: 11px; font-family: var(--display); font-size: 21px; line-height: 1.15; letter-spacing: -1px; }
-.treatment-card p { min-height: 42px; margin-bottom: 22px; color: var(--muted); font-size: 12px; line-height: 1.5; }
-.featured p { color: #c5def4; }
-.treatment-card a {
+.treatment-card:hover .treatment-icon { transform: scale(1.06) rotate(-4deg); }
+.treatment-card h3 {
+  margin: 0 0 20px;
+  font-family: var(--display);
+  font-size: 26px;
+  line-height: 1.12;
+  letter-spacing: -1.1px;
+}
+.treatment-procedures {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  flex: 1;
+}
+.treatment-procedures li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 8px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  background: rgba(234, 242, 252, .45);
+  transition: background .25s ease, transform .25s ease;
+}
+.treatment-procedures li:last-child { margin-bottom: 0; }
+.treatment-procedures li:hover {
+  background: rgba(33, 102, 232, .07);
+  transform: translateX(2px);
+}
+.treatment-procedure-copy { min-width: 0; }
+.treatment-procedures strong {
+  display: block;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.15px;
+}
+.treatment-procedures span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+.treatment-price {
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  margin-top: auto;
-  color: var(--teal);
-  font-size: 12px;
-  font-weight: 700;
-}
-.featured a { color: #b8e8d2; }
-.treatment-card a span { margin-left: 8px; font-size: 16px; }
-.treatment-more { display: flex; gap: 22px; align-items: center; margin-top: 25px; color: var(--muted); font-size: 11px; }
-.treatment-more span { color: var(--teal); font-weight: 700; }
-.treatment-more p { margin: 0; }
-
-.pricing { background: var(--cream); }
-.pricing-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
-.pricing-row {
-  display: grid;
-  grid-template-columns: 48px 1fr auto;
-  gap: 18px;
-  align-items: center;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--line);
-}
-.pricing-number { color: #91a8c4; font-size: 12px; font-weight: 600; }
-.pricing-info h3 {
-  margin: 0;
-  font-family: var(--display);
-  font-size: 18px;
-  letter-spacing: -.5px;
-  line-height: 1.25;
-}
-.pricing-info p {
-  margin: 6px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.45;
-}
-.pricing-amount {
+  padding: 7px 11px;
+  border-radius: 999px;
   color: var(--teal-dark);
+  background: #fff;
+  border: 1px solid rgba(33, 102, 232, .14);
+  box-shadow: 0 4px 12px rgba(18, 59, 122, .06);
   font-family: var(--display);
-  font-size: 18px;
-  letter-spacing: -.4px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: -.2px;
   white-space: nowrap;
+}
+.treatment-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+  padding: 13px 16px;
+  border-radius: 12px;
+  color: var(--white);
+  background: linear-gradient(135deg, #1b57d4 0%, #2166e8 55%, #3d7ef0 100%);
+  box-shadow: 0 10px 24px rgba(33, 102, 232, .28);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -.1px;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+.treatment-cta span { font-size: 16px; line-height: 1; }
+.treatment-cta:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 14px 28px rgba(33, 102, 232, .34);
+  transform: translateY(-1px);
+}
+.treatment-note {
+  margin: 28px 0 0;
+  color: #7a8aa3;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: .1px;
 }
 
 .care-section { background: var(--peach); }
@@ -364,9 +464,7 @@ h2 { font-size: clamp(37px, 4vw, 52px); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 25px 0; }
   .stats-grid > div:nth-child(3) { padding-left: 0; border-left: 0; }
   .about-visual { min-height: 440px; }
-  .treatment-grid { grid-template-columns: repeat(2, 1fr); }
-  .pricing-row { grid-template-columns: 40px 1fr; gap: 12px 16px; }
-  .pricing-amount { grid-column: 2; justify-self: start; }
+  .treatment-grid { grid-template-columns: 1fr; }
   .testimonial-card { flex-basis: calc((100% - 14px) / 2); }
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
@@ -416,66 +514,35 @@ h2 { font-size: clamp(37px, 4vw, 52px); }
     padding: 14px 16px;
     font-size: 13px;
   }
-  .treatment-grid { grid-template-columns: 1fr; gap: 12px; }
-  .pricing-row {
-    grid-template-columns: 32px 1fr;
-    gap: 8px 12px;
-    padding: 18px 0;
-  }
-  .pricing-info h3 { font-size: 16px; }
-  .pricing-info p { font-size: 11px; }
-  .pricing-amount { font-size: 16px; }
+  .treatment-grid { grid-template-columns: 1fr; gap: 14px; }
   .treatment-card {
-    align-items: center;
+    align-items: stretch;
     min-height: auto;
     padding: 22px 18px 18px;
-    border-radius: 18px;
-    text-align: center;
+    border-radius: 20px;
   }
-  .treatment-number {
-    width: 100%;
-    text-align: center;
-  }
+  .treatment-card::before { left: 18px; right: 18px; }
+  .treatment-card-top { margin-bottom: 14px; }
   .treatment-icon {
-    width: 52px;
-    height: 52px;
-    margin: 12px auto 14px;
-    font-size: 22px;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    font-size: 18px;
   }
   .treatment-card h3 {
-    width: 100%;
-    font-size: 20px;
-    line-height: 1.25;
-    text-align: center;
-  }
-  .treatment-card p {
-    min-height: auto;
     margin-bottom: 16px;
-    font-size: 13px;
-    text-align: center;
+    font-size: 22px;
+    line-height: 1.2;
   }
-  .treatment-card a {
-    justify-content: center;
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: #eaf4ff;
+  .treatment-procedures li {
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    padding: 11px 10px;
   }
-  .treatment-card.featured a {
-    color: var(--white);
-    background: rgba(255,255,255,.16);
-  }
-  .treatment-more {
-    align-items: center;
-    flex-direction: column;
-    gap: 8px;
-    padding: 14px 16px;
-    border-radius: 14px;
-    background: rgba(255,255,255,.65);
-    font-size: 12px;
-    line-height: 1.55;
-    text-align: center;
-  }
+  .treatment-procedures strong { font-size: 13px; }
+  .treatment-price { font-size: 11.5px; padding: 6px 10px; }
+  .treatment-cta { padding: 12px 14px; font-size: 12.5px; }
+  .treatment-note { margin-top: 22px; font-size: 11px; padding: 0 8px; }
   .appointment-grid { gap: 35px; }
   .appointment-form { padding: 24px 19px; }
   .form-row { grid-template-columns: 1fr; gap: 0; }

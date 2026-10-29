@@ -31,24 +31,53 @@ const heroSlides = [
 ];
 
 const treatments = [
-  ["01", "⌁", "Congenital", "Anomalies", "Specialized treatment for conditions present from birth."],
-  ["02", "◌", "Paediatric", "Urology", "Expert care for urinary and genital conditions in children."],
-  ["03", "◒", "Laparoscopic &", "Endoscopic", "Modern minimally invasive techniques for better recovery."],
-  ["04", "♡", "Scrotal &", "Vascular", "Care for hernia, hydrocele and varicocele conditions."],
-];
-
-const pricing = [
-  ["01", "Open / Laparoscopic appendicectomy", "One day stay", "PKR 100,000"],
-  ["02", "Inguinal / umbilical hernia repair (herniotomy)", "Laparoscopic repair", "PKR 100,000"],
-  ["03", "Hypospadias repair", "Single-stage repair · One day stay", "PKR 150,000"],
-  ["04", "Undescended testis", "Laparoscopy for intra-abdominal testis", "PKR 100,000"],
-  ["05", "Open / Laparoscopic pyeloplasty for PUJO", "Laparoscopic pyeloplasty", "PKR 250,000"],
-  ["06", "Cystoscopy for PUV", "", "PKR 150,000"],
-  ["07", "Urethral reimplantation for VUR / megaureter", "", "PKR 300,000"],
-  ["08", "Bladder stone", "PUCL / PCCL — removal by camera / laser", "PKR 100,000"],
-  ["09", "Ureteroscopic removal of ureteric stone", "", "PKR 150,000"],
-  ["10", "Renal stone in children", "RIRS / PCNL", "PKR 250,000"],
-  ["11", "Circumcision", "Plastibell or open by stitch method · No hospital stay", "PKR 20,000"],
+  {
+    number: "01",
+    icon: "⌁",
+    title: "General Paeds",
+    subtitle: "Surgery",
+    procedures: [
+      { name: "Open appendicectomy", note: "One day stay", price: "PKR 100,000" },
+      { name: "Inguinal / umbilical hernia repair (herniotomy)", note: "", price: "PKR 100,000" },
+      { name: "Circumcision", note: "Plastibell or open by stitch · No hospital stay", price: "PKR 20,000" },
+    ],
+  },
+  {
+    number: "02",
+    icon: "◌",
+    title: "Paediatric",
+    subtitle: "Urology",
+    procedures: [
+      { name: "Hypospadias repair", note: "Single-stage · One day stay", price: "PKR 150,000" },
+      { name: "Undescended testis", note: "", price: "PKR 100,000" },
+      { name: "Open pyeloplasty for PUJO", note: "", price: "PKR 250,000" },
+      { name: "Urethral reimplantation for VUR / megaureter", note: "", price: "PKR 300,000" },
+    ],
+  },
+  {
+    number: "03",
+    icon: "◒",
+    title: "Endoscopic",
+    subtitle: "Surgery",
+    procedures: [
+      { name: "Cystoscopy for PUV", note: "", price: "PKR 150,000" },
+      { name: "Bladder stone", note: "PUCL / PCCL — camera / laser", price: "PKR 100,000" },
+      { name: "Ureteroscopic removal of ureteric stone", note: "", price: "PKR 150,000" },
+      { name: "Renal stone in children", note: "RIRS / PCNL", price: "PKR 250,000" },
+    ],
+  },
+  {
+    number: "04",
+    icon: "♡",
+    title: "Laparoscopic",
+    subtitle: "Paeds Surgery",
+    procedures: [
+      { name: "Laparoscopic appendicectomy", note: "One day stay", price: "PKR 100,000" },
+      { name: "Laparoscopic hernia repair", note: "", price: "PKR 100,000" },
+      { name: "Laparoscopy for intra-abdominal testis", note: "", price: "PKR 100,000" },
+      { name: "Laparoscopic pyeloplasty", note: "", price: "PKR 250,000" },
+    ],
+  },
 ];
 
 const testimonials = [
@@ -227,7 +256,7 @@ export default function Home() {
           </button>
           <nav className={`main-nav ${menuOpen ? "open" : ""}`} aria-label="Main navigation">
             {[
-              ["Home", "#home"], ["About", "#about"], ["Treatments", "#treatments"], ["Pricing", "#pricing"],
+              ["Home", "#home"], ["About", "#about"], ["Treatments", "#treatments"],
               ["Clinics", "#clinics"], ["Testimonials", "#testimonials"], ["Contact", "#contact"],
             ].map(([label, href], index) => (
               <a className={index === 0 ? "active" : ""} href={href} key={label} onClick={() => setMenuOpen(false)}>{label}</a>
@@ -298,40 +327,41 @@ export default function Home() {
         </section>
 
         <section className="treatments section-pad" id="treatments">
+          <div className="treatments-glow" aria-hidden="true"></div>
           <div className="container">
-            <div className="section-heading"><div><p className="eyebrow"><span></span> What we treat</p><h2>Specialized care for<br /><em>every little need.</em></h2></div><p>From congenital conditions to paediatric urology, every child receives thoughtful, experienced care.</p></div>
+            <div className="section-heading treatments-heading">
+              <div>
+                <p className="eyebrow"><span></span> What we treat</p>
+                <h2>Specialized care for<br /><em>every little need.</em></h2>
+              </div>
+              <p>Transparent procedure fees across four specialties — confirmed personally after consultation.</p>
+            </div>
             <div className="treatment-grid">
-              {treatments.map(([number, icon, title, subtitle, description], index) => (
-                <article className={`treatment-card ${index === 0 ? "featured" : ""}`} key={number}>
-                  <span className="treatment-number">{number}</span><div className="treatment-icon">{icon}</div><h3>{title}<br />{subtitle}</h3><p>{description}</p><a href="#appointment">Explore treatment <span>↗</span></a>
+              {treatments.map((treatment) => (
+                <article className="treatment-card" key={treatment.number}>
+                  <div className="treatment-card-top">
+                    <span className="treatment-number">{treatment.number}</span>
+                    <div className="treatment-icon" aria-hidden="true">{treatment.icon}</div>
+                  </div>
+                  <h3>{treatment.title}<br />{treatment.subtitle}</h3>
+                  <ul className="treatment-procedures">
+                    {treatment.procedures.map((procedure) => (
+                      <li key={procedure.name}>
+                        <div className="treatment-procedure-copy">
+                          <strong>{procedure.name}</strong>
+                          {procedure.note ? <span>{procedure.note}</span> : null}
+                        </div>
+                        <em className="treatment-price">{procedure.price}</em>
+                      </li>
+                    ))}
+                  </ul>
+                  <a className="treatment-cta" href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">
+                    Book consultation <span>↗</span>
+                  </a>
                 </article>
               ))}
             </div>
-            <div className="treatment-more"><span>Also treating</span><p>Hypospadias &nbsp;·&nbsp; Undescended Testicles &nbsp;·&nbsp; Bladder Exstrophy &nbsp;·&nbsp; Hydronephrosis &nbsp;·&nbsp; VUR &nbsp;·&nbsp; UTIs &nbsp;·&nbsp; Phimosis &nbsp;·&nbsp; Hydrocele &nbsp;·&nbsp; Varicocele &nbsp;·&nbsp; Bedwetting &nbsp;·&nbsp; Kidney Stones &nbsp;·&nbsp; Tumors</p></div>
-          </div>
-        </section>
-
-        <section className="pricing section-pad" id="pricing">
-          <div className="container">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow"><span></span> Procedure fees</p>
-                <h2>Transparent pricing<br /><em>for every family.</em></h2>
-              </div>
-              <p>Indicative fees for common paediatric procedures. Final cost is confirmed after consultation.</p>
-            </div>
-            <div className="pricing-list">
-              {pricing.map(([number, title, note, price]) => (
-                <div className="pricing-row" key={number}>
-                  <span className="pricing-number">{number}</span>
-                  <div className="pricing-info">
-                    <h3>{title}</h3>
-                    {note ? <p>{note}</p> : null}
-                  </div>
-                  <strong className="pricing-amount">{price}</strong>
-                </div>
-              ))}
-            </div>
+            <p className="treatment-note">Fees are indicative. Exact package depends on the child’s condition and hospital stay.</p>
           </div>
         </section>
 
@@ -410,7 +440,7 @@ export default function Home() {
       </main>
 
       <footer className="site-footer" id="contact">
-        <div className="container footer-top"><div><a className="brand footer-brand" href="#home"><img className="brand-logo" src="/pediatric-logo.jpg" alt="Paediatric Surgeon and Paediatric Urologist" /><span><strong>Dr. M. Nadeem Sajjad</strong></span></a><p>Paediatric Surgeon and<br />Paediatric Urologist</p></div><div className="footer-column"><h4>Explore</h4><a href="#about">About the doctor</a><a href="#treatments">Treatments</a><a href="#pricing">Pricing</a><a href="#clinics">Our clinics</a></div><div className="footer-column"><h4>Get in touch</h4><a href="tel:+923017978308">0301-7978308</a><a href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">WhatsApp: 0301-7978308</a><a href="mailto:Mazhar20211@gmail.com">Mazhar20211@gmail.com</a><p>Rasheed Hospital (Near DHA)<br />Mon–Thu, 3–5 PM<br />Zaitoon Hospital, Pattoki<br />Friday, 4 PM<br />Rehman Medical Complex, Okara<br />5:30 PM – 7:30 PM</p></div><div className="footer-column footer-cta"><h4>Ready to talk?</h4><a className="button button-light" href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book an appointment <span>↗</span></a></div></div>
+        <div className="container footer-top"><div><a className="brand footer-brand" href="#home"><img className="brand-logo" src="/pediatric-logo.jpg" alt="Paediatric Surgeon and Paediatric Urologist" /><span><strong>Dr. M. Nadeem Sajjad</strong></span></a><p>Paediatric Surgeon and<br />Paediatric Urologist</p></div><div className="footer-column"><h4>Explore</h4><a href="#about">About the doctor</a><a href="#treatments">Treatments</a><a href="#clinics">Our clinics</a></div><div className="footer-column"><h4>Get in touch</h4><a href="tel:+923017978308">0301-7978308</a><a href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">WhatsApp: 0301-7978308</a><a href="mailto:Mazhar20211@gmail.com">Mazhar20211@gmail.com</a><p>Rasheed Hospital (Near DHA)<br />Mon–Thu, 3–5 PM<br />Zaitoon Hospital, Pattoki<br />Friday, 4 PM<br />Rehman Medical Complex, Okara<br />5:30 PM – 7:30 PM</p></div><div className="footer-column footer-cta"><h4>Ready to talk?</h4><a className="button button-light" href={`${WHATSAPP_LINK}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noopener noreferrer">Book an appointment <span>↗</span></a></div></div>
         <div className="container footer-bottom"><span>© 2025 Dr. M. Nadeem Sajjad. All rights reserved.</span><span>Made with care for little ones <span className="heart">♥</span></span></div>
       </footer>
     </>
